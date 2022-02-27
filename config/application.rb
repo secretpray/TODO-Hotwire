@@ -18,5 +18,9 @@ module TurboTodo
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
+      tag_hidden = 'hide' if instance.class.name == 'ActionView::Helpers::Tags::Label'
+      "<div class=\"field_with_errors control-group error w-full #{tag_hidden}\">#{html_tag}</div>".html_safe
+    end
   end
 end
