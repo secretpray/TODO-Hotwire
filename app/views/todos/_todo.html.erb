@@ -1,3 +1,5 @@
-<li class="py-2 px-4 border-b border-gray-300">
-  <%= todo.name %>
+<li id="<%= "#{dom_id(todo)}_container" %>" class="py-2 px-4 border-b border-gray-300">
+  <%= turbo_frame_tag dom_id(todo) do %>
+    <%= link_to todo.name, edit_todo_path(todo) %>
+  <% end %>
 </li>
