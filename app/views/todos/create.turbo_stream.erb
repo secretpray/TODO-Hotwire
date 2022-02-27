@@ -1,4 +1,4 @@
-<%= turbo_stream.prepend "todos" do %>
+<%= turbo_stream.append "todos" do %>
   <%= render "todo", todo: @todo %>
 <% end %>
 <%= turbo_stream.replace "#{dom_id(Todo.new)}_form" do %>
