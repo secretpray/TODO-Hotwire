@@ -1,24 +1,17 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This application is a simple todo list, built with Rails 7, import maps, and Turbo. In it, we use Turbo Streams and Turbo Frames to allow users to create, edit, and delete todos without full page turns or custom JavaScript.
 
-Things you may want to cover:
+To run this application locally, clone the repository and then:
 
-* Ruby version
+```bash
+bundle install
+```
+```bash
+rails db:create db:migrate
+```
+```bash
+bin/dev
+```
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Based on https://www.colby.so/posts/turbo-rails-101-todo-list
