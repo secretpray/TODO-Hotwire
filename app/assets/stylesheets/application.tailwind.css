@@ -11,3 +11,7 @@
 }
 
 */
+
+.field_with_errors.hide {
+  display: none;
+}
