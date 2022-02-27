@@ -1,0 +1,13 @@
+<div class="mx-auto w-1/2">
+  <h2 class="text-2xl text-gray-900">
+    Your todos
+  </h2>
+  <div class="w-full max-w-2xl bg-gray-100 py-8 px-4 border border-gray-200 rounded shadow-sm">
+    <div class="py-2 px-4">
+      <%= render "form", todo: Todo.new %>
+    </div>
+    <ul id="todos">
+      <%= render @todos %>
+    </ul>
+  </div>
+</div>
