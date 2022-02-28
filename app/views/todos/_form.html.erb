@@ -1,5 +1,5 @@
 <%= form_with(model: todo, id: "#{dom_id(todo)}_form") do |form| %>
-  <%= render 'shared/errors', resource: todo %>
+  <%= render 'shared/errors', object: form.object %> 
   <div class="flex items-stretch flex-grow">
     <%= form.label :name, class: "sr-only" %>
     <%= form.text_field :name, class: "block w-full rounded-none rounded-l-md sm:text-sm border-gray-300", placeholder: "Add a new todo..." %>
