@@ -16,7 +16,7 @@ bin/dev
 
 ## Preview
 
-https://user-images.githubusercontent.com/17977331/155882072-19d001f7-eb3b-4e00-9b53-72e09495c500.mp4
+https://user-images.githubusercontent.com/17977331/155981574-551c40eb-4d1c-423a-a222-9f88c97356b4.mov
 
 
 PS Based on https://www.colby.so/posts/turbo-rails-101-todo-list
