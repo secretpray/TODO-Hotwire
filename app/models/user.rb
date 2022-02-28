@@ -7,6 +7,7 @@ class User < ApplicationRecord
 
   has_secure_password
   has_secure_token :remember_token
+  has_many :active_sessions, dependent: :destroy
 
   before_save :downcase_email
   before_save :downcase_unconfirmed_email
@@ -27,7 +28,7 @@ class User < ApplicationRecord
       new(passwords)
       nil
     end
-  end 
+  end
 
   def generate_confirmation_token
     signed_id expires_in: CONFIRMATION_TOKEN_EXPIRATION, purpose: :confirm_email
