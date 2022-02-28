@@ -6,13 +6,14 @@ class User < ApplicationRecord
   attr_accessor :current_password
 
   has_secure_password
+
   has_many :active_sessions, dependent: :destroy
 
   before_save :downcase_email
   before_save :downcase_unconfirmed_email
 
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, presence: true, uniqueness: true
-  validates :unconfirmed_email, format: { with: URI::MailTo::EMAIL_REGEXP, allow_blank: true }
+  validates :email, format: {with: URI::MailTo::EMAIL_REGEXP}, presence: true, uniqueness: true
+  validates :unconfirmed_email, format: {with: URI::MailTo::EMAIL_REGEXP, allow_blank: true}
 
   def self.authenticate_by(attributes)
     passwords, identifiers = attributes.to_h.partition do |name, value|
@@ -26,6 +27,29 @@ class User < ApplicationRecord
     else
       new(passwords)
       nil
+    end
+  end
+
+  def confirm!
+    if unconfirmed_or_reconfirming?
+      if unconfirmed_email.present?
+        return false unless update(email: unconfirmed_email, unconfirmed_email: nil)
+      end
+      update_columns(confirmed_at: Time.current)
+    else
+      false
+    end
+  end
+
+  def confirmed?
+    confirmed_at.present?
+  end
+
+  def confirmable_email
+    if unconfirmed_email.present?
+      unconfirmed_email
+    else
+      email
     end
   end
 
@@ -47,35 +71,12 @@ class User < ApplicationRecord
     UserMailer.password_reset(self, password_reset_token).deliver_now
   end
 
-  def confirm!
-    if unconfirmed_or_reconfirming?
-      if unconfirmed_email.present?
-        return false unless update(email: unconfirmed_email, unconfirmed_email: nil)
-      end
-      update_columns(confirmed_at: Time.current)
-    else
-      false
-    end
-  end
-
-  def confirmable_email
-    if unconfirmed_email.present?
-      unconfirmed_email
-    else
-      email
-    end
-  end
-
-  def confirmed?
-    confirmed_at.present?
+  def reconfirming?
+    unconfirmed_email.present?
   end
 
   def unconfirmed?
     !confirmed?
-  end
-
-  def reconfirming?
-    unconfirmed_email.present?
   end
 
   def unconfirmed_or_reconfirming?

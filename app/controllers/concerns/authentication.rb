@@ -20,32 +20,22 @@ module Authentication
     active_session
   end
 
+  def forget_active_session
+    cookies.delete :remember_token
+  end
+
   def logout
     active_session = ActiveSession.find_by(id: session[:current_active_session_id])
     reset_session
     active_session.destroy! if active_session.present?
   end
 
-  def forget_active_session
-    cookies.delete :remember_token
-  end
-
-  def forget(user)
-    cookies.delete :remember_token
-    user.regenerate_remember_token
-  end
-
-  def remember(user)
-    user.regenerate_remember_token
-    cookies.permanent.encrypted[:remember_token] = user.remember_token
+  def redirect_if_authenticated
+    redirect_to root_path, alert: "You are already logged in." if user_signed_in?
   end
 
   def remember(active_session)
     cookies.permanent.encrypted[:remember_token] = active_session.remember_token
-  end
-
-  def redirect_if_authenticated
-    redirect_to root_path, alert: "You are already logged in." if user_signed_in?
   end
 
   private
