@@ -4,3 +4,4 @@
 <%= turbo_stream.replace "#{dom_id(Todo.new)}_form" do %>
   <%= render "form", todo: Todo.new %>
 <% end %>
+<%#= turbo_stream.prepend "flash", partial: "shared/flash" %>

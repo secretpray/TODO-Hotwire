@@ -24,8 +24,9 @@ class TodosController < ApplicationController
 
     respond_to do |format|
       if @todo.save
+        flash.now[:notice] = "Todo was successfully created."
         format.turbo_stream
-        format.html { redirect_to todo_url(@todo), notice: "Todo was successfully created." }
+        format.html { redirect_to root_url, notice: "Todo was successfully created." }
       else
         format.turbo_stream {
           render turbo_stream: turbo_stream.replace("#{helpers.dom_id(@todo)}_form",
