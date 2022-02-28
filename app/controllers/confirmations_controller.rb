@@ -19,10 +19,12 @@ class ConfirmationsController < ApplicationController
     @user = User.find_signed(params[:confirmation_token], purpose: :confirm_email)
 
     if @user.present?
-      @user.confirm!
-      login @user
-    else
-      redirect_to new_confirmation_path, alert: "Invalid token."
+      if @user.confirm!
+        login @user
+        redirect_to root_path, notice: "Your account has been confirmed."
+      else
+        redirect_to new_confirmation_path, alert: "Something went wrong."
+      end
     end
   end
 end
