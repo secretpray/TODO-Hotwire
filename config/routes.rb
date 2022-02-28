@@ -11,6 +11,10 @@ Rails.application.routes.draw do
   post "login", to: "sessions#create"
   delete "logout", to: "sessions#destroy"
 
+  get "account", to: "users#edit"
+  put "account", to: "users#update"
+  delete "account", to: "users#destroy"
+
   resources :confirmations, only: %i[create edit new], param: :confirmation_token
   resources :passwords, only: %i[create edit new update], param: :password_reset_token
 
