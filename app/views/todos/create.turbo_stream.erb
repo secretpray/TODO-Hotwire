@@ -1,7 +1,12 @@
-<%= turbo_stream.append "todos" do %>
-  <%= render "todo", todo: @todo %>
+<% if @todo.errors.any? %>
+  <%= turbo_stream.replace("#{dom_id(@todo)}_form", partial: "form", locals: { todo: @todo }) %>
+<% else %>
+  <%= turbo_stream.append "todos" do %>
+    <%= render "todo", todo: @todo %>
+  <% end %>
+  <%= turbo_stream.replace "#{dom_id(Todo.new)}_form" do %>
+    <%= render "form", todo: Todo.new %>
+  <% end %>
 <% end %>
-<%= turbo_stream.replace "#{dom_id(Todo.new)}_form" do %>
-  <%= render "form", todo: Todo.new %>
-<% end %>
-<%#= turbo_stream.prepend "flash", partial: "shared/flash" %>
+
+<%= turbo_stream.prepend "flash", partial: "shared/flash" %>
