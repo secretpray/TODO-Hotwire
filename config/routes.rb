@@ -1,29 +1,18 @@
 Rails.application.routes.draw do
-  root "static_pages#home"
+  get 'sign_in', to: 'sessions#new'
+  post 'sign_in', to: 'sessions#create'
+  get 'sign_up', to: 'registrations#new'
+  post 'sign_up', to: 'registrations#create'
+  resources :sessions, only: [:index, :show, :destroy]
+  resource :email, only: [:edit, :update]
+  resource :email_verification, only: [:edit, :create]
+  resource :password, only: [:edit, :update]
+  resource :password_reset, only: [:new, :edit, :create, :update]
+  resource :registration, only: :destroy
+  resource :sudo, only: [:new, :create]
+  root 'home#index'
 
   resources :todos do
     patch :change_status, on: :member
   end
-
-  get "sign_up", to: "users#new"
-  post "sign_up", to: "users#create"
-
-  get "login", to: "sessions#new"
-  post "login", to: "sessions#create"
-  delete "logout", to: "sessions#destroy"
-
-  get "account", to: "users#edit"
-  put "account", to: "users#update"
-  delete "account", to: "users#destroy"
-
-  resources :confirmations, only: %i[create edit new], param: :confirmation_token
-  resources :passwords, only: %i[create edit new update], param: :password_reset_token
-
-  resources :active_sessions, only: :destroy do
-    collection do
-      delete "destroy_all"
-    end
-  end
-
-
 end
