@@ -16,8 +16,8 @@ bin/dev
 
 ## Preview
 
-https://user-images.githubusercontent.com/17977331/155981574-551c40eb-4d1c-423a-a222-9f88c97356b4.mov
-
+https://user-images.githubusercontent.com/17977331/156383968-c9131afd-c041-41b0-9b96-138ddab7e641.mov
 
 PS Based on https://www.colby.so/posts/turbo-rails-101-todo-list
+            and
             https://github.com/lazaronixon/authentication-zero
