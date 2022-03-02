@@ -1,11 +1,47 @@
-<%= form_with url: password_path(params[:password_reset_token]), scope: :user, method: :put do |form| %>
-  <div>
-    <%= form.label :password %>
-    <%= form.password_field :password, required: true %>
+<%= button_to "Back", root_path, method: :get,
+                      class: 'inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 mt-4 dark:bg-gray-800 dark:text-gray-500 dark:border-gray-500 dark:hover:border-gray-400 dark:hover:text-gray-300 dark:hover:bg-gray-700' %>
+
+<div class="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8 w-full">
+  <div class="sm:mx-auto sm:w-full sm:max-w-md">
+    <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-gray-400">Change your password</h2>
   </div>
-  <div>
-    <%= form.label :password_confirmation %>
-    <%= form.password_field :password_confirmation, required: true %>
+
+  <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+    <div class="bg-white dark:bg-gray-600 py-8 px-4 shadow sm:rounded-lg sm:px-10">
+      <%= form_with(model: @user, url: password_path, class: 'space-y-6' ) do |form| %>
+        <%= render 'shared/errors', object: form.object %>
+
+        <div>
+          <%= form.label :current_password, class: 'block text-sm font-medium text-gray-700 dark:text-gray-300'%>
+          <div class="mt-1">
+            <%= form.password_field :current_password, autofocus: true, autocomplete: "current-password",
+                          placeholder: 'Current password',
+                          class: "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
+          </div>
+        </div>
+
+        <div>
+          <%= form.label :password, 'New password', class: 'block text-sm font-medium text-gray-700 dark:text-gray-300'%>
+          <div class="mt-1">
+            <%= form.password_field :password, autocomplete: "new-password",
+                          placeholder: '8 characters minimum.',
+                          class: "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
+          </div>
+        </div>
+
+        <div>
+          <%= form.label :password_confirmation, 'Confirm new password', class: 'block text-sm font-medium text-gray-700 dark:text-gray-300' %>
+          <div class="mt-1">
+            <%= form.password_field :password_confirmation, autocomplete: "new-password",
+                          placeholder: 'Check new password.',
+                          class: "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
+          </div>
+        </div>
+
+        <div>
+          <%= form.submit "Save changes", class: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+        </div>
+      <% end %>
+    </div>
   </div>
-  <%= form.submit "Update Password" %>
-<% end %>
+</div>
